@@ -31,7 +31,8 @@ class loginpageState extends StatelessWidget {
           isloading == true;
         } else if (state is LoginSuccess) {
           BlocProvider.of<ChatCubit>(context).getMessages();
-          Navigator.pushNamed(context, ChatPage.id, arguments: email);
+         
+          Navigator.pushNamedAndRemoveUntil(context,  ChatPage.id, arguments: email, (route) => false);
           isloading == false;
         } else if (state is LoginFailure) {
           showSnackBar(context, state.errorMessage);
@@ -117,6 +118,7 @@ class loginpageState extends StatelessWidget {
                         if (formKey.currentState!.validate()) {
                           BlocProvider.of<AuthBloc>(context).add(LoginEvents(
                               email: email!, password: password!));
+
                         }
                       }),
                   //sign up
@@ -137,7 +139,8 @@ class loginpageState extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, regesterpageState.id);
+                          // Navigator.pushNamed(context, regesterpageState.id);
+                          Navigator.pushNamedAndRemoveUntil(context, regesterpageState.id, (route) => false);
                         },
                         child: const Text(
                           ' Regester ',

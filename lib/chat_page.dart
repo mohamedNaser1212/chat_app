@@ -2,8 +2,6 @@ import 'package:chat_app/Cubits/chat_cubit.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:chat_app/widgets/chat_buble.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'constant.dart';
 
@@ -27,7 +25,7 @@ class ChatPage extends StatelessWidget {
               Klogo,
               height: 50,
             ),
-            Text(' Chat'),
+            const Text(' Chat'),
           ],
         ),
         backgroundColor: KPrimaryColor,
@@ -56,33 +54,48 @@ class ChatPage extends StatelessWidget {
               },
             ),
           ),
+
+
+
+
+
+
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
               controller: controller,
-              onSubmitted: (data) {
-                if (controller.text.isNotEmpty) {
-                  BlocProvider.of<ChatCubit>(context)
-                      .sendMessage(message: data, email: email.toString());
-                }
-                _Controller.animateTo(0,
-                    duration: Duration(seconds: 2),
-                    curve: Curves.fastOutSlowIn);
-                controller.clear();
-              },
+              // onSubmitted: (data) {
+              //   if (controller.text.isNotEmpty) {
+              //     BlocProvider.of<ChatCubit>(context)
+              //         .sendMessage(message: data, email: email.toString());
+              //   }
+              //   _Controller.animateTo(0,
+              //       duration: Duration(seconds: 2),
+              //       curve: Curves.fastOutSlowIn);
+              //   controller.clear();
+              // },
               decoration: InputDecoration(
-                suffixIcon: Icon(
-                  Icons.send,
-                  color: KPrimaryColor,
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.send, color: KPrimaryColor),
+                  onPressed: () {
+                    if (controller.text.isNotEmpty) {
+                      BlocProvider.of<ChatCubit>(context)
+                          .sendMessage(message: controller.text, email: email.toString());
+                    }
+                    _Controller.animateTo(0,
+                        duration: const Duration(seconds: 2),
+                        curve: Curves.fastOutSlowIn);
+                    controller.clear();
+                  },
                   // Icons.chat_rounded
                 ),
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
                 hintText: 'Send Message',
-                hintStyle: TextStyle(),
+                hintStyle: const TextStyle(),
                 enabledBorder: OutlineInputBorder(
+
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: KPrimaryColor,
                   ),
                 ),

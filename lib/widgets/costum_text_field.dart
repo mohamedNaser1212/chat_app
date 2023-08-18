@@ -15,22 +15,23 @@ String? hinttext;
           return'field is required';
 
         }
+        return null;
 
       },
       onChanged:onChanged ,
       decoration: InputDecoration(
         hintText:hinttext,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Colors.white
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
                 color: Colors.white
 
             )
 
         ),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide(
               color: Colors.white
 
